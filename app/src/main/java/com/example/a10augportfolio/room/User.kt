@@ -12,8 +12,6 @@ class User (@PrimaryKey(autoGenerate = true)
             var login: String,
             @ColumnInfo(name = "name")
             var name: String,
-            @ColumnInfo(name = "surname")
-            var surname : String,
             @ColumnInfo(name = "password")
             var password: String) {
 

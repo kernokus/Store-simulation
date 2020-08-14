@@ -15,15 +15,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var network: NetworkRepo
 
 
-    lateinit var fm:FragmentManager
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-         fm=supportFragmentManager
-        fm.beginTransaction().add(R.id.fragmentBox,
-            SplashScreenFragment()
-        ).commit()
 
     }
 }

@@ -10,23 +10,28 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.a10augportfolio.R
 import com.example.a10augportfolio.model.NetworkRepo
-import com.example.a10augportfolio.presenter.FirstPresenter
+import com.example.a10augportfolio.presenter.LoginPresenter
 import com.example.a10augportfolio.view.FirstFragmentView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.first_fragment.*
+import kotlinx.android.synthetic.main.login_fragment.*
+import kotlinx.android.synthetic.main.login_fragment.newUserBtnTV
+import kotlinx.android.synthetic.main.login_fragment.passwET
+import kotlinx.android.synthetic.main.registration_fragment.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider
 
 @AndroidEntryPoint
-class FirstFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeListener {
+class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeListener {
 
 
     @Inject
-    lateinit var presenterProvider: Provider<FirstPresenter>
+    lateinit var presenterProvider: Provider<LoginPresenter>
 
     private val firstPresenter by moxyPresenter { presenterProvider.get() }
 
@@ -46,7 +51,7 @@ class FirstFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.first_fragment,
+            R.layout.login_fragment,
             container, false)
     }
 
@@ -56,11 +61,8 @@ class FirstFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
         passwET.onFocusChangeListener = this
 
         newUserBtnTV.setOnClickListener {
-        val fm = (activity as AppCompatActivity).supportFragmentManager
-           fm.beginTransaction().detach(FirstFragment()).replace(R.id.fragmentBox, RegistrationFragment()).addToBackStack("FirstFragment")
-                .commit() //переход ко второму фрагменту
+            findNavController().navigate(R.id.registrationFragment)
        }
-
     }
 
 

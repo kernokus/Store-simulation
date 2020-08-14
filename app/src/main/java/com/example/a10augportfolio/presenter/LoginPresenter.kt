@@ -8,7 +8,7 @@ import moxy.MvpPresenter
 import javax.inject.Inject
 
 
-class FirstPresenter @Inject constructor(
+class LoginPresenter @Inject constructor(
     val networkRepo: NetworkRepo,
     val sp: SharedPreferences
 

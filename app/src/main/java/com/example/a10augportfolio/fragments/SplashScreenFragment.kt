@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.a10augportfolio.R
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -26,10 +28,8 @@ class SplashScreenFragment:Fragment(),CoroutineScope{
         launch {
             delay(500)
             withContext(Dispatchers.Main){
-                val fm=(activity as AppCompatActivity).supportFragmentManager.beginTransaction().replace(
-                    R.id.fragmentBox,
-                    FirstFragment()
-                ).commit()
+                findNavController().popBackStack(R.id.splashScreenFragment, true)
+                findNavController().navigate(R.id.loginFragment)
             }
         }
     }

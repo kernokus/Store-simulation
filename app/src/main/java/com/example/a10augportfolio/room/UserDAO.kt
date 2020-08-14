@@ -19,8 +19,8 @@ interface UserDAO {
     @Delete
     fun delete(User: User?)
 
-    @Query("SELECT * FROM User WHERE name = :name AND surname=:surname AND password=:password AND login=:login")
-    fun getByParams(name:String,login:String,password:String,surname:String): User?
+    @Query("SELECT * FROM User WHERE name = :name  AND password=:password AND login=:login")
+    fun getByParams(name:String,login:String,password:String): User?
 
     @Query("SELECT * FROM User WHERE password=:password AND login=:login")
     fun getByTwoParams(login:String,password:String): User?

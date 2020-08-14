@@ -7,4 +7,7 @@
     <string name="signup">Signup</string>
     <string name="slash">/</string>
     <string name="newuser">NewUser</string>
+    <string name="username">Username</string>
+    <string name="register">Register</string>
+    <string name="mail">Mail</string>
 </resources>
