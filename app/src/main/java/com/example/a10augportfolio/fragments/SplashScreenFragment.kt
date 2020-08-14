@@ -26,7 +26,7 @@ class SplashScreenFragment:Fragment(),CoroutineScope{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         launch {
-            delay(500)
+            delay(1500)
             withContext(Dispatchers.Main){
                 findNavController().popBackStack(R.id.splashScreenFragment, true)
                 findNavController().navigate(R.id.loginFragment)
