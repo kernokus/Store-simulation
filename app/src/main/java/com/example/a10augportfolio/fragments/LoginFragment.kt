@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.example.a10augportfolio.App
 import com.example.a10augportfolio.R
 import com.example.a10augportfolio.model.NetworkRepo
+import com.example.a10augportfolio.model.RoomRepo
 import com.example.a10augportfolio.presenter.LoginPresenter
 import com.example.a10augportfolio.view.FirstFragmentView
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,15 +38,11 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
 
     private val firstPresenter by moxyPresenter { presenterProvider.get() }
 
-
-    @Inject
-    lateinit var network: NetworkRepo
-
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
-
-
+    @Inject
+    lateinit var db: RoomRepo
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +62,12 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
         newUserBtnTV.setOnClickListener {
             findNavController().navigate(R.id.registrationFragment)
        }
+        btnLogin.setOnClickListener {
+            if(isFieldsAreFill()) {
+                firstPresenter.checkUserInDb(loginET.text.toString(),passwET.text.toString())
+            }
+            else Toast.makeText(App.ctx, "Not successfully(fields not a full)", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -83,6 +88,19 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
         view?.let { activity?.hideKeyboard(it) }
     }
 
+    private fun isFieldsAreFill():Boolean {
+        if (loginET.text.toString()!="" && passwET.text.toString()!="") {
+            return true
+        }
+        return false
+    }
+
+    override fun redirectAfterCheck(answer: Boolean) {
+       if (answer) {
+           findNavController().navigate(R.id.shopFragment)
+       }
+        else Toast.makeText(App.ctx, "This user not register", Toast.LENGTH_SHORT).show()
+    }
 
 
 }

@@ -18,9 +18,16 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_shopFragment"
+            app:destination="@id/shopFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.a10augportfolio.fragments.RegistrationFragment"
         android:label="RegistrationFragment" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.a10augportfolio.fragments.ShopFragment"
+        android:label="ShopFragment" />
 </navigation>

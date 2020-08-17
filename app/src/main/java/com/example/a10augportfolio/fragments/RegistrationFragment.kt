@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.a10augportfolio.App
 import com.example.a10augportfolio.R
 import com.example.a10augportfolio.model.RoomRepo
 import com.example.a10augportfolio.presenter.RegistrationPresenter
+import com.example.a10augportfolio.room.User
 import com.example.a10augportfolio.view.RegFragmentView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.registration_fragment.*
@@ -60,7 +63,11 @@ class RegistrationFragment:MvpAppCompatFragment(),RegFragmentView,View.OnClickLi
 
     override fun onClick(view: View?) {
         when(view?.id){
-            R.id.btnReg ->{
+            R.id.btnReg -> {
+                if (isFieldsAreFill()){
+                    regPresenter.addNewUser(User(0,name = loginETR.text.toString(),mail = mailETR.text.toString(),password = passwETR.text.toString()))
+                }
+                else Toast.makeText(App.ctx, "Not successfully(fields not a full)", Toast.LENGTH_SHORT).show()
 
             }
             R.id.signUpBtnTV->{
@@ -84,6 +91,21 @@ class RegistrationFragment:MvpAppCompatFragment(),RegFragmentView,View.OnClickLi
     }
     private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
+    }
+
+
+    private fun isFieldsAreFill():Boolean {
+        if (loginETR.text.toString()!="" && passwETR.text.toString()!="" && mailETR.text.toString()!="") {
+            return true
+        }
+        return false
+    }
+
+    override fun showResAddUser(answer: String) {
+        if (answer==RoomRepo.SUCCESS) {
+            Toast.makeText(App.ctx, "Successfully", Toast.LENGTH_SHORT).show()
+        }
+        else Toast.makeText(App.ctx, "Not successfully", Toast.LENGTH_SHORT).show()
     }
 
 }
