@@ -1,6 +1,6 @@
 package com.example.a10augportfolio.model
 
-import android.content.Context
+
 import androidx.room.Room
 import com.example.a10augportfolio.App
 import com.example.a10augportfolio.room.AppDatabase

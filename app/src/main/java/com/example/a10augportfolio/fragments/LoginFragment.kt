@@ -44,6 +44,9 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
     @Inject
     lateinit var db: RoomRepo
 
+    @Inject
+    lateinit var network: NetworkRepo
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -97,6 +100,7 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
 
     override fun redirectAfterCheck(answer: Boolean) {
        if (answer) {
+           firstPresenter.loadCatalog()
            findNavController().navigate(R.id.shopFragment)
        }
         else Toast.makeText(App.ctx, "This user not register", Toast.LENGTH_SHORT).show()
