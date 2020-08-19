@@ -16,3 +16,16 @@ class User (@PrimaryKey(autoGenerate = true)
             var password: String) {
 
 }
+
+@Entity
+class itemCatalogs (@PrimaryKey(autoGenerate = true)
+            @ColumnInfo(name = "id")
+            var id: Long,
+            @ColumnInfo(name = "price")
+            var price: String,
+            @ColumnInfo(name = "name")
+            var name: String,
+            @ColumnInfo(name = "url")
+            var url: String) {
+
+}

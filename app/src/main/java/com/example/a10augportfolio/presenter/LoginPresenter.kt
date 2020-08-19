@@ -2,6 +2,7 @@ package com.example.a10augportfolio.presenter
 
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.a10augportfolio.model.NetworkRepo
 import com.example.a10augportfolio.model.RoomRepo
 import com.example.a10augportfolio.view.FirstFragmentView
@@ -41,15 +42,12 @@ class LoginPresenter @Inject constructor(
             //загружаю из бд
         }
         else {
-            network.getCatalog()
-            sp.edit().putString(IS_A_FIRST_LOAD, NOT_FIRST).apply()
+            GlobalScope.launch(Dispatchers.IO) {
+                val catalog=network.getCatalog()
+                Log.d("catalogAfterNetwork",catalog.toString())
+                    ..db.addCatalogInBD(catalog) //добавление полученных данных в бд
+                sp.edit().putString(IS_A_FIRST_LOAD, NOT_FIRST).apply()
+            }
+        }
         }
     }
-
-
-
-
-
-
-
-}
