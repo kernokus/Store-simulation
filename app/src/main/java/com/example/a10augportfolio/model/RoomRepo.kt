@@ -13,7 +13,7 @@ class RoomRepo {
         const val UNSUCCESSFUL="unsuccessful"
     }
 
-    private fun getDb(): AppDatabase {
+    public fun getDb(): AppDatabase { //паблик на время
         return Room.databaseBuilder(App.ctx, AppDatabase::class.java, "db").build()
     }
 
@@ -30,7 +30,7 @@ class RoomRepo {
     }
 
 
-    suspend fun isHaveUser(username:String,password:String): Boolean {
+    fun isHaveUser(username:String,password:String): Boolean {
         val db=getDb()
         val user= db.userDao()?.getByTwoParams(username,password)
         return user!=null

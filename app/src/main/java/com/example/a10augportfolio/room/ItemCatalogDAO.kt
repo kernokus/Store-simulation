@@ -7,7 +7,6 @@ interface ItemCatalogDAO {
     @Query("SELECT * FROM itemCatalogs")
     fun getAll(): List<itemCatalogs?>?
 
-
     @Insert
     fun insertAll(users: List<itemCatalogs?>)
     @Insert
@@ -15,5 +14,10 @@ interface ItemCatalogDAO {
 
     @Update
     fun update(item: itemCatalogs?)
+
+    @Delete
+    fun delete(item: itemCatalogs?)
+
+
 
 }

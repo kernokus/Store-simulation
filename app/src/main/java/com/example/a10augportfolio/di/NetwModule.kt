@@ -14,7 +14,7 @@ class NetwModule {
 
 
         @Provides
-       // @Singleton
+        @Singleton
         fun provideNetworkModule(): NetworkRepo {
             return NetworkRepo()
         }

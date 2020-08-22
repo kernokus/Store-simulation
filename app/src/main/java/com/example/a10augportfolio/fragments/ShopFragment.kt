@@ -1,6 +1,7 @@
 package com.example.a10augportfolio.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +58,6 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
         //достать из бд
 
 
-        //val itemsDB:Collection<itemCatalogs?>?=
             shopPresenter.getCatalog()
        // if (itemsDB!=null) {
         //    items?.addAll(itemsDB)
@@ -67,15 +67,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
         rvCatalog.adapter =myAdapter
 
 
-
-//        testBtn.setOnClickListener {
-//            GlobalScope.launch(Dispatchers.IO) {
-//                val test=db.getUsers()
-//                withContext(Dispatchers.Main){
-//                    testTV.text=test.toString()
-//                }
-//            }
-//        }
+       Log.d("itemCOUNT",myAdapter.itemCount.toString())
     }
 
 
@@ -129,7 +121,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
 
     override fun loadCatalogFromDB(catalog: Collection<itemCatalogs?>?) {
         if (catalog != null) {
-            items?.addAll(catalog)
+            myAdapter.addList(catalog as List<itemCatalogs>)
         }
         myAdapter.notifyDataSetChanged()
     }

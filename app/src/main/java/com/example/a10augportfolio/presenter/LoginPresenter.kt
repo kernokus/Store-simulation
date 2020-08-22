@@ -3,13 +3,14 @@ package com.example.a10augportfolio.presenter
 
 import android.content.SharedPreferences
 import android.util.Log
+import com.example.a10augportfolio.OnRequestFinishedListener
 import com.example.a10augportfolio.model.NetworkRepo
 import com.example.a10augportfolio.model.RoomRepo
+import com.example.a10augportfolio.network.paxabayPOJO
+import com.example.a10augportfolio.room.itemCatalogs
 import com.example.a10augportfolio.view.FirstFragmentView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.*
 import moxy.MvpPresenter
 import javax.inject.Inject
 
@@ -29,25 +30,41 @@ class LoginPresenter @Inject constructor(
     }
 
 
+
     fun checkUserInDb (username:String,password:String) {
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             val answer=db.isHaveUser(username,password)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 viewState.redirectAfterCheck(answer)
             }
         }
     }
     fun loadCatalog() {
+        var items =mutableListOf<itemCatalogs?>()
         if (sp.contains(IS_A_FIRST_LOAD) && sp.getString(IS_A_FIRST_LOAD,"def")!=null) {
             //загружаю из бд
         }
         else {
-            GlobalScope.launch(Dispatchers.IO) {
-                val catalog=network.getCatalog()
-                Log.d("catalogAfterNetwork",catalog.toString())
-                    ..db.addCatalogInBD(catalog) //добавление полученных данных в бд
+                val network=network.getCatalog(object : OnRequestFinishedListener {
+                    override  fun loadFromOnResponse(res: MutableList<itemCatalogs?>) {
+                        Log.d("res",res.toString())
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            delay(1000)
+                            db.getDb().itemCatalogsDao()?.insert(itemCatalogs(0, "1", "#", "$")) //НЕ РАБОТАЕТ!
+                            db.getDb().itemCatalogsDao()?.insert(itemCatalogs(0, "2", "#", "$")) //НЕ РАБОТАЕТ!
+                            //db.addCatalogInBD(res) //добавление полученных данных в бд не работает
+                        }
+                    }
+                })
+
                 sp.edit().putString(IS_A_FIRST_LOAD, NOT_FIRST).apply()
             }
+        Log.d("ITEMS",items.toString())
         }
         }
-    }
+
+
+
+
+
