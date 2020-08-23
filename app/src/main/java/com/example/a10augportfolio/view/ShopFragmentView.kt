@@ -7,5 +7,5 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = OneExecutionStateStrategy::class) //разобраться
 interface ShopFragmentView:MvpView {
-     fun loadCatalogFromDB(catalog: Collection<itemCatalogs?>?)
+     fun loadCatalogFromDB(catalog: Collection<itemCatalogs>?)
 }

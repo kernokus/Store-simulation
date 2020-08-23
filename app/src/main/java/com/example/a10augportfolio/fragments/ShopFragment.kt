@@ -49,7 +49,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvCatalog.layoutManager=LinearLayoutManager(App.ctx)
-        val items: ArrayList<itemCatalogs?>? = arrayListOf()
+        val items: ArrayList<itemCatalogs>? = arrayListOf()
 
         shopPresenter.getCatalog()
         myAdapter=AdapterPendingCases(items)
@@ -60,14 +60,12 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
     }
 
 
-    class AdapterPendingCases(private val values:ArrayList<itemCatalogs?>?): RecyclerView.Adapter<AdapterPendingCases.PendingCasesViewHolder>() {
+    class AdapterPendingCases(private val values:ArrayList<itemCatalogs>?): RecyclerView.Adapter<AdapterPendingCases.PendingCasesViewHolder>() {
         override fun getItemCount(): Int {
             return values!!.size
         }
 
         inner class PendingCasesViewHolder constructor(itemView: View):RecyclerView.ViewHolder(itemView) {
-
-
 
             fun bind(item: itemCatalogs) {
                 itemView.price.text=item.price
@@ -95,7 +93,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
             notifyDataSetChanged()
         }
 
-        fun  getListValues(): ArrayList<itemCatalogs?>? {
+        fun  getListValues(): ArrayList<itemCatalogs>? {
             return values
         }
 
@@ -108,7 +106,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
 
     }
 
-    override fun loadCatalogFromDB(catalog: Collection<itemCatalogs?>?) {
+    override fun loadCatalogFromDB(catalog: Collection<itemCatalogs>?) {
         if (catalog != null) {
             myAdapter.addList(catalog as List<itemCatalogs>)
         }

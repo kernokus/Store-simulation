@@ -32,7 +32,7 @@ class LoginPresenter @Inject constructor(
 
     override val coroutineContext: CoroutineContext= SupervisorJob()+Dispatchers.Main.immediate
 
-    var items =mutableListOf<itemCatalogs?>()
+
 
 
 
@@ -62,7 +62,7 @@ class LoginPresenter @Inject constructor(
             }
                 sp.edit().putString(IS_A_FIRST_LOAD, NOT_FIRST).apply()
             }
-        Log.d("ITEMS",items.toString())
+
         }
     override fun onDestroy() {
         cancel()

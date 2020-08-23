@@ -5,12 +5,12 @@ import androidx.room.*
 @Dao
 interface ItemCatalogDAO {
     @Query("SELECT * FROM itemCatalogs")
-    suspend fun getAll(): List<itemCatalogs?>?
+    suspend fun getAll(): List<itemCatalogs>?
 
     @Insert
-    suspend fun insertAll(users: List<itemCatalogs?>)
+    suspend fun insertAll(users: List<itemCatalogs>)
     @Insert
-     suspend fun insert(item: itemCatalogs?)
+    suspend fun insert(item: itemCatalogs?)
 
     @Update
     suspend fun update(item: itemCatalogs?)

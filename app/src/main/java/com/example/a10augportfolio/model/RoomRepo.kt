@@ -42,11 +42,11 @@ suspend fun addUser(user:User): String {
     }
 
 
-     suspend fun getCatalog(): Collection<itemCatalogs?>? {
+     suspend fun getCatalog(): Collection<itemCatalogs>? {
         return getDb().itemCatalogsDao()?.getAll()
     }
 
-    suspend fun saveCatalogInDb(ourData: MutableList<itemCatalogs?>) {
+    suspend fun saveCatalogInDb(ourData: MutableList<itemCatalogs>) {
         getDb().itemCatalogsDao()?.insertAll(ourData)
     }
 
