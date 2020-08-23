@@ -1,2 +1,3 @@
-# PortfolioProj5
+# В процессе
  
+<img src="https://github.com/kernokus/Store-simulation/blob/master/git.jpg" width="600" height="600">
