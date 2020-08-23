@@ -13,12 +13,12 @@ class RoomRepo {
         const val UNSUCCESSFUL="unsuccessful"
     }
 
-    public fun getDb(): AppDatabase { //паблик на время
+    private fun getDb(): AppDatabase { //паблик на время
         return Room.databaseBuilder(App.ctx, AppDatabase::class.java, "db").build()
     }
 
 //USER
-    suspend fun addUser(user:User): String {
+suspend fun addUser(user:User): String {
         val db=getDb()
 
         if (db.userDao()?.getByParams(user.name,user.mail,user.password) ==null) {
@@ -30,25 +30,29 @@ class RoomRepo {
     }
 
 
-    fun isHaveUser(username:String,password:String): Boolean {
+    suspend fun isHaveUser(username:String, password:String): Boolean {
         val db=getDb()
         val user= db.userDao()?.getByTwoParams(username,password)
         return user!=null
     }
 
-    fun getUsers(): List<User?>? {
+    suspend fun getUsers(): List<User?>? {
         val db=getDb()
         return db.userDao()?.getAll()
     }
-//CATALOG
 
-     fun getCatalog(): Collection<itemCatalogs?>? {
+
+     suspend fun getCatalog(): Collection<itemCatalogs?>? {
         return getDb().itemCatalogsDao()?.getAll()
     }
 
-    fun addCatalogInBD(catalog: MutableList<itemCatalogs?>) {
-        getDb().itemCatalogsDao()?.insertAll(catalog)
+    suspend fun saveCatalogInDb(ourData: MutableList<itemCatalogs?>) {
+        getDb().itemCatalogsDao()?.insertAll(ourData)
     }
+
+//    fun addCatalogInBD(catalog: MutableList<itemCatalogs?>) {
+//        getDb().itemCatalogsDao()?.insertAll(catalog)
+//    }
 
 
 

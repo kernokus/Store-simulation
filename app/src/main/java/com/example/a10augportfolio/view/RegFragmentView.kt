@@ -6,5 +6,5 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = OneExecutionStateStrategy::class) //разобраться
 interface RegFragmentView:MvpView {
-    abstract fun showResAddUser(answer: String)
+     fun showResAddUser(answer: String)
 }

@@ -6,20 +6,24 @@ import com.example.a10augportfolio.view.ShopFragmentView
 import kotlinx.coroutines.*
 import moxy.MvpPresenter
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 class ShopPresenter @Inject constructor(
     var db: RoomRepo
-):MvpPresenter<ShopFragmentView>() {
+):MvpPresenter<ShopFragmentView>(),CoroutineScope {
 
+    override val coroutineContext: CoroutineContext = SupervisorJob()+Dispatchers.Main.immediate
 
      fun getCatalog() {
-         CoroutineScope(Dispatchers.IO).launch {
+         launch {
              val catalog=db.getCatalog()
              Log.d("SHOPPRESENTERCATALOG",catalog.toString())
-             withContext(Dispatchers.Main) {
-                 viewState.loadCatalogFromDB(catalog)
-             }
+             viewState.loadCatalogFromDB(catalog)
          }
+    }
 
+    override fun onDestroy() {
+        cancel()
+        super.onDestroy()
     }
 }

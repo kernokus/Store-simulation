@@ -98,7 +98,7 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
         return false
     }
 
-    override fun redirectAfterCheck(answer: Boolean) {
+    override  fun redirectAfterCheck(answer: Boolean) {
        if (answer) {
            firstPresenter.loadCatalog()
            findNavController().navigate(R.id.shopFragment)

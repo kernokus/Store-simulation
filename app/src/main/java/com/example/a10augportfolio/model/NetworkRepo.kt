@@ -23,7 +23,7 @@ class NetworkRepo {
         const val BASE_URL_PIXABAY="https://pixabay.com/api/"
         const val API_KEY_PIXABAY="17951668-b5172637b18686031bb7db33b"
     }
-    var items =mutableListOf<itemCatalogs?>()
+
 
     fun getRetrofit(BaseUrl:String): Retrofit {
         val interceptor = HttpLoggingInterceptor()
@@ -37,80 +37,39 @@ class NetworkRepo {
             .build()
 
     }
-//MutableList<itemCatalogs?>
-//    fun getCatalog(): MutableList<itemCatalogs?> {
-//    val items =mutableListOf<itemCatalogs?>()
-//    var count=0
-//
-//
-//
-//    val network=getRetrofit(BASE_URL_PIXABAY).create(paxabayRequest::class.java)
-//    network.getScriptInfo(
-//        API_KEY_PIXABAY,"yellow+flowers","photo")
-////        .subscribeOn(Schedulers.io())
-////        .observeOn(AndroidSchedulers.mainThread())
-////        .subscribe(object :DisposableSingleObserver<paxabayPOJO>(){
-////            override fun onSuccess(t: paxabayPOJO?) {
-////                Log.d("RXHELLO", "onSuccess: ${t?.hits.toString()}")
-////                while(count<10) {
-////                    items.add(hitPOJOinItemCatalog(t?.hits?.get(count)))
-////                    count++
-////                }
-////                Log.d("RXHELLOAFTERNETWORK", "onSuccess: ${items.toString()}")
-////
-////            }
-////
-////            override fun onError(e: Throwable?) {
-////                Log.d("RXHELLO", "onSuccess: ${e?.toString()}")
-////            }
-////
-////        })
-//        network.enqueue(object : Callback<paxabayPOJO> {
-//            override fun onResponse(call: Call<paxabayPOJO>, response: Response<paxabayPOJO>) {
-//               val res= response.body()?.hits
-//                var count=0
-//
-//                while(count<10) {
-//                    val items =mutableListOf<itemCatalogs?>()
-//                    items.add(hitPOJOinItemCatalog(res?.get(count)))
-//                    count++
-//                }
-//                //ДОСТАТЬ ITEMS И ПОЛОЖИТЬ В БАЗУ!!!
-//
-//               // Log.d("listCATALOG",items.toString())
-//
-//            }
-//
-//            override fun onFailure(call: Call<paxabayPOJO>, t: Throwable) {
-//                //TODO обработать неудачный запрос
-//            }
-//        })
-//            Log.d("catalogRX",items.toString())
-//    return items
-//    }
-fun getCatalog(myCallback:OnRequestFinishedListener) {
 
-    val network=getRetrofit(BASE_URL_PIXABAY).create(paxabayRequest::class.java).getScriptInfo(
-        API_KEY_PIXABAY,"yellow+flowers","photo")
-    network.enqueue(object : Callback<paxabayPOJO> {
-        override fun onResponse(call: Call<paxabayPOJO>, response: Response<paxabayPOJO>) {
-            val res= response.body()?.hits
-            var count=0
+suspend fun getCatalog(): MutableList<itemCatalogs?> {
+    val items =mutableListOf<itemCatalogs?>()
+    var count=0
+    val dataNetwork=getRetrofit(BASE_URL_PIXABAY).create(paxabayRequest::class.java).getScriptInfo(
+        API_KEY_PIXABAY,"yellow+flowers","photo").hits
+    Log.d("TAGS",dataNetwork.toString())
+
             while(count<10) {
-                items.add(hitPOJOinItemCatalog(res?.get(count)))
+                items.add(hitPOJOinItemCatalog(dataNetwork?.get(count)))
                 count++
             }
+    return items
 
-            CoroutineScope(Dispatchers.IO).launch {
-                myCallback.loadFromOnResponse(items) //данные передаются
-                Log.d("listCATALOG", items.toString())
-            }
-        }
-        override fun onFailure(call: Call<paxabayPOJO>, t: Throwable) {
-            //TODO обработать неудачный запрос
-        }
-    })
-    Log.d("catalogInNetwork",items.toString())
+//    network.enqueue(object : Callback<paxabayPOJO> {
+//        override fun onResponse(call: Call<paxabayPOJO>, response: Response<paxabayPOJO>) {
+//            val res= response.body()?.hits
+//            var count=0
+//            while(count<10) {
+//                items.add(hitPOJOinItemCatalog(res?.get(count)))
+//                count++
+//            }
+//
+//            //CoroutineScope(Dispatchers.IO).launch {
+//                myCallback.loadFromOnResponse(items) //данные передаются
+//                Log.d("listCATALOG", items.toString())
+//           // }
+//        }
+//        override fun onFailure(call: Call<paxabayPOJO>, t: Throwable) {
+//            //TODO обработать неудачный запрос
+//        }
+//    })
+   // Log.d("catalogInNetwork",items.toString())
 }
 
 

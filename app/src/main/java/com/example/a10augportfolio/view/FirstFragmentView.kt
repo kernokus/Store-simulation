@@ -6,7 +6,5 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = OneExecutionStateStrategy::class) //разобраться
 interface FirstFragmentView:MvpView {
-    abstract fun redirectAfterCheck(answer: Boolean)
-
-
+    fun redirectAfterCheck(answer: Boolean)
 }

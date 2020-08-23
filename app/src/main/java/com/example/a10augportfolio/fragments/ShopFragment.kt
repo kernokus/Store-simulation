@@ -17,10 +17,6 @@ import com.example.a10augportfolio.view.ShopFragmentView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.item_catalog.view.*
 import kotlinx.android.synthetic.main.shop_fragment.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
@@ -54,15 +50,8 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
         super.onViewCreated(view, savedInstanceState)
         rvCatalog.layoutManager=LinearLayoutManager(App.ctx)
         val items: ArrayList<itemCatalogs?>? = arrayListOf()
-        //
-        //достать из бд
 
-
-            shopPresenter.getCatalog()
-       // if (itemsDB!=null) {
-        //    items?.addAll(itemsDB)
-       // }
-
+        shopPresenter.getCatalog()
         myAdapter=AdapterPendingCases(items)
         rvCatalog.adapter =myAdapter
 
