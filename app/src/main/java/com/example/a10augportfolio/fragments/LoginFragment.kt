@@ -61,7 +61,10 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
         super.onViewCreated(view, savedInstanceState)
         loginET.onFocusChangeListener = this
         passwET.onFocusChangeListener = this
-
+        if (firstPresenter.isFirstLoad()) //загружаем только 1 раз
+        {
+            firstPresenter.loadCatalog()  //временно тут(загрузка из сети данных в бд)
+        }
         newUserBtnTV.setOnClickListener {
             findNavController().navigate(R.id.registrationFragment)
        }
@@ -100,7 +103,6 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
 
     override  fun redirectAfterCheck(answer: Boolean) {
        if (answer) {
-           firstPresenter.loadCatalog()
            findNavController().navigate(R.id.shopFragment)
        }
         else Toast.makeText(App.ctx, "This user not register", Toast.LENGTH_SHORT).show()

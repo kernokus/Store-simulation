@@ -35,7 +35,7 @@ suspend fun getCatalog(): MutableList<itemCatalogs> {
         API_KEY_PIXABAY,"yellow+flowers","photo").hits
     Log.d("TAGS",dataNetwork.toString())
 
-            while(count<10) {
+            while(count<15) {
                 items.add(hitPOJOinItemCatalog(dataNetwork?.get(count)))
                 count++
             }

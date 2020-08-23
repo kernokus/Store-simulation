@@ -22,6 +22,14 @@ class ShopPresenter @Inject constructor(
          }
     }
 
+    fun checkDB(){
+        launch {
+            val catalogSize=db.getCatalog()?.size
+            viewState.loadSizeInBtn(catalogSize)
+
+        }
+    }
+
     override fun onDestroy() {
         cancel()
         super.onDestroy()

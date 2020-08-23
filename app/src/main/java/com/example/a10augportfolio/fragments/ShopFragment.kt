@@ -14,17 +14,21 @@ import com.example.a10augportfolio.model.RoomRepo
 import com.example.a10augportfolio.presenter.ShopPresenter
 import com.example.a10augportfolio.room.itemCatalogs
 import com.example.a10augportfolio.view.ShopFragmentView
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.item_catalog.view.*
 import kotlinx.android.synthetic.main.shop_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider
+import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
-class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
-    val items: ArrayList<itemCatalogs?>? = arrayListOf()
+class ShopFragment:MvpAppCompatFragment(),ShopFragmentView,CoroutineScope {
     private lateinit var myAdapter :AdapterPendingCases
 
     @Inject
@@ -35,6 +39,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
     @Inject
     lateinit var db: RoomRepo
 
+    override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.Main.immediate
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +61,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
         rvCatalog.adapter =myAdapter
 
 
-       Log.d("itemCOUNT",myAdapter.itemCount.toString())
+       Log.d("itemCOUNTcatalog",myAdapter.itemCount.toString())
     }
 
 
@@ -68,7 +73,9 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
         inner class PendingCasesViewHolder constructor(itemView: View):RecyclerView.ViewHolder(itemView) {
 
             fun bind(item: itemCatalogs) {
-                itemView.price.text=item.price
+                itemView.priceTV.text=item.price
+                Picasso.get().load(item.url).into(itemView.photoItem)
+                itemView.descriptionTV.text=item.name
             }
 
 
@@ -82,34 +89,22 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView {
             values?.get(position)?.let { holder.bind(it) }
         }
 
-
-        fun delAndUpdate(position: Int) {
-            values?.removeAt(position)
-            notifyDataSetChanged()
-        }
-
-        fun addAndUpdate(item: itemCatalogs) {
-            values?.add(item)
-            notifyDataSetChanged()
-        }
-
-        fun  getListValues(): ArrayList<itemCatalogs>? {
-            return values
-        }
-
         fun addList(items:List<itemCatalogs>) {
             values?.addAll(items)
         }
 
-        fun getSizeListRV(): Int {return values!!.size}
-        fun clearListRV(){values?.clear()}
 
     }
 
     override fun loadCatalogFromDB(catalog: Collection<itemCatalogs>?) {
         if (catalog != null) {
+            Log.d("catalogInFragmentShop",catalog.toString())
             myAdapter.addList(catalog as List<itemCatalogs>)
         }
         myAdapter.notifyDataSetChanged()
+    }
+
+    override fun loadSizeInBtn(catalogSize: Int?) {
+        //button.text=catalogSize.toString()
     }
 }

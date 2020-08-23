@@ -13,11 +13,11 @@ class RoomRepo {
         const val UNSUCCESSFUL="unsuccessful"
     }
 
-    private fun getDb(): AppDatabase { //паблик на время
+    private fun getDb(): AppDatabase {
         return Room.databaseBuilder(App.ctx, AppDatabase::class.java, "db").build()
     }
 
-//USER
+
 suspend fun addUser(user:User): String {
         val db=getDb()
 
@@ -41,7 +41,6 @@ suspend fun addUser(user:User): String {
         return db.userDao()?.getAll()
     }
 
-
      suspend fun getCatalog(): Collection<itemCatalogs>? {
         return getDb().itemCatalogsDao()?.getAll()
     }
@@ -49,11 +48,4 @@ suspend fun addUser(user:User): String {
     suspend fun saveCatalogInDb(ourData: MutableList<itemCatalogs>) {
         getDb().itemCatalogsDao()?.insertAll(ourData)
     }
-
-//    fun addCatalogInBD(catalog: MutableList<itemCatalogs?>) {
-//        getDb().itemCatalogsDao()?.insertAll(catalog)
-//    }
-
-
-
 }

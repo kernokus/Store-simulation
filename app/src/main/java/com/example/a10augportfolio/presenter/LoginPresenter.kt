@@ -39,30 +39,29 @@ class LoginPresenter @Inject constructor(
     fun checkUserInDb (username:String,password:String) {
         launch {
             val answer=db.isHaveUser(username,password)
+            if(answer){
+            //loadCatalog()
+        }
             viewState.redirectAfterCheck(answer)
         }
-
-
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            withContext(Dispatchers.Main) {
-
-            }
-        }
     }
-     fun loadCatalog() {
-        if (sp.contains(IS_A_FIRST_LOAD) && sp.getString(IS_A_FIRST_LOAD,"def")!=null) {
-            //загружаю из бд
+
+    fun isFirstLoad():Boolean{
+        if(sp.getString(IS_A_FIRST_LOAD,"def")!= NOT_FIRST) {
+            sp.edit().putString(IS_A_FIRST_LOAD, NOT_FIRST).apply()
+            return true
         }
-        else {
+        else return false
+    }
+
+     fun loadCatalog() {
+
+            Log.d("LOAD","LOAD!!!!")
             launch {
                 val ourData=network.getCatalog()
+                Log.d("catalogData",ourData.toString())
                 db.saveCatalogInDb(ourData)
             }
-                sp.edit().putString(IS_A_FIRST_LOAD, NOT_FIRST).apply()
-            }
-
         }
     override fun onDestroy() {
         cancel()

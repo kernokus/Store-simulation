@@ -11,13 +11,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 class NetwModule {
-
-
         @Provides
         @Singleton
         fun provideNetworkModule(): NetworkRepo {
             return NetworkRepo()
         }
-
-
     }
