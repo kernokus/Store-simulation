@@ -1,9 +1,7 @@
 package com.example.a10augportfolio
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
-import com.example.a10augportfolio.fragments.SplashScreenFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.a10augportfolio.model.NetworkRepo
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

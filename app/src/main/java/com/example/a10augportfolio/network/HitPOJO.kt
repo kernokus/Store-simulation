@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-class hitPOJO {
+class HitPOJO {
     @SerializedName("id")
     @Expose
     var id: Int? = null

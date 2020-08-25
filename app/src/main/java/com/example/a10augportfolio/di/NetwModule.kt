@@ -1,6 +1,5 @@
 package com.example.a10augportfolio.di
 
-import com.example.a10augportfolio.MainActivity
 import com.example.a10augportfolio.model.NetworkRepo
 import dagger.Module
 import dagger.Provides

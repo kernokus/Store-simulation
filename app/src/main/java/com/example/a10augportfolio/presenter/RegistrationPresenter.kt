@@ -2,13 +2,14 @@ package com.example.a10augportfolio.presenter
 
 import com.example.a10augportfolio.model.RoomRepo
 import com.example.a10augportfolio.room.User
-
 import com.example.a10augportfolio.view.RegFragmentView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import moxy.MvpPresenter
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
 
 class RegistrationPresenter @Inject constructor(
     var db: RoomRepo

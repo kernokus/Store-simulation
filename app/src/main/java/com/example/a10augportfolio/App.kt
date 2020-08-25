@@ -13,6 +13,6 @@ class App:Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ctx=applicationContext
+        ctx=applicationContext //временный костыль
     }
 }

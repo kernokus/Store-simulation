@@ -43,7 +43,7 @@
                 android:id="@+id/loginETR"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="1"
+
                 android:layout_marginBottom="8dp"
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
@@ -65,7 +65,7 @@
                 android:id="@+id/passwETR"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="1"
+
                 android:layout_marginBottom="8dp"
                 android:drawablePadding="5dp"
                 android:hint="@string/password"
@@ -88,7 +88,6 @@
                 android:layout_height="50dp"
                 android:drawablePadding="5dp"
                 android:hint="@string/mail"
-                android:text="1"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>

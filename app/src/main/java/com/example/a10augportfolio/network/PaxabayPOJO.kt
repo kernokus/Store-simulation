@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-class paxabayPOJO {
+class PaxabayPOJO {
     @SerializedName("total")
     @Expose
     var total: Int? = null
@@ -16,6 +16,6 @@ class paxabayPOJO {
 
     @SerializedName("hits")
     @Expose
-    var hits: List<hitPOJO>? = null
+    var hits: List<HitPOJO>? = null
 
 }

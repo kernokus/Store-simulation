@@ -1,7 +1,7 @@
 package com.example.a10augportfolio.model
 
 import android.util.Log
-import com.example.a10augportfolio.network.hitPOJO
+import com.example.a10augportfolio.network.HitPOJO
 import com.example.a10augportfolio.network.paxabayRequest
 import com.example.a10augportfolio.room.itemCatalogs
 import okhttp3.OkHttpClient
@@ -16,7 +16,7 @@ class NetworkRepo {
     }
 
 
-    fun getRetrofit(BaseUrl:String): Retrofit {
+    private fun getRetrofit(BaseUrl:String): Retrofit {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = (HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
@@ -43,7 +43,7 @@ suspend fun getCatalog(): MutableList<itemCatalogs> {
 }
 
 
-    private fun hitPOJOinItemCatalog(hitPOJO: hitPOJO?): itemCatalogs {
+    private fun hitPOJOinItemCatalog(hitPOJO: HitPOJO?): itemCatalogs {
         return itemCatalogs(0,hitPOJO?.likes.toString(),hitPOJO?.tags.toString(),hitPOJO?.largeImageURL.toString())
     }
 

@@ -13,32 +13,29 @@ class RoomRepo {
         const val UNSUCCESSFUL="unsuccessful"
     }
 
+
+
+    private val appDatabase:AppDatabase=Room.databaseBuilder(App.ctx, AppDatabase::class.java, "db").build() //1 экземпляр т.к. класс синглтон
+
     private fun getDb(): AppDatabase {
-        return Room.databaseBuilder(App.ctx, AppDatabase::class.java, "db").build()
+        return appDatabase
     }
 
 
 suspend fun addUser(user:User): String {
-        val db=getDb()
+        //val db=getDb()
 
-        if (db.userDao()?.getByParams(user.name,user.mail,user.password) ==null) {
-            db.userDao()?.insert(user)
+        if (getDb().userDao()?.getByParams(user.name,user.mail,user.password) ==null) {
+            getDb().userDao()?.insert(user)
            return SUCCESS
         }
         return UNSUCCESSFUL
 
     }
 
-
     suspend fun isHaveUser(username:String, password:String): Boolean {
-        val db=getDb()
-        val user= db.userDao()?.getByTwoParams(username,password)
+        val user= getDb().userDao()?.getByTwoParams(username,password)
         return user!=null
-    }
-
-    suspend fun getUsers(): List<User?>? {
-        val db=getDb()
-        return db.userDao()?.getAll()
     }
 
      suspend fun getCatalog(): Collection<itemCatalogs>? {

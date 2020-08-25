@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.a10augportfolio.App
 import com.example.a10augportfolio.R
@@ -21,9 +19,6 @@ import com.example.a10augportfolio.presenter.LoginPresenter
 import com.example.a10augportfolio.view.FirstFragmentView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.login_fragment.*
-import kotlinx.android.synthetic.main.login_fragment.newUserBtnTV
-import kotlinx.android.synthetic.main.login_fragment.passwET
-import kotlinx.android.synthetic.main.registration_fragment.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject

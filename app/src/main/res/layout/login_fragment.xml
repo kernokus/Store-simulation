@@ -66,8 +66,7 @@
                 android:id="@+id/loginET"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Username"
-                android:text="1"
+                android:hint="@string/username"
                 android:layout_marginBottom="8dp"
                 android:imeOptions="actionNext"
                 android:inputType="text" />
@@ -89,7 +88,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:drawablePadding="5dp"
-                android:text="1"
                 android:hint="@string/password"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword" />
