@@ -67,7 +67,7 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
             if(isFieldsAreFill()) {
                 firstPresenter.checkUserInDb(loginET.text.toString(),passwET.text.toString())
             }
-            else Toast.makeText(App.ctx, "Not successfully(fields not a full)", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(context, "Not successfully(fields not a full)", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -100,7 +100,7 @@ class LoginFragment:MvpAppCompatFragment(),FirstFragmentView,View.OnFocusChangeL
        if (answer) {
            findNavController().navigate(R.id.shopFragment)
        }
-        else Toast.makeText(App.ctx, "This user not register", Toast.LENGTH_SHORT).show()
+        else Toast.makeText(context, "This user not register", Toast.LENGTH_SHORT).show()
     }
 
 

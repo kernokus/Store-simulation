@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.a10augportfolio.App
 import com.example.a10augportfolio.R
 import com.example.a10augportfolio.model.RoomRepo
@@ -14,7 +15,7 @@ import com.example.a10augportfolio.model.RoomRepo
 import com.example.a10augportfolio.presenter.ShopPresenter
 import com.example.a10augportfolio.room.itemCatalogs
 import com.example.a10augportfolio.view.ShopFragmentView
-import com.squareup.picasso.Picasso
+
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.item_catalog.view.*
 import kotlinx.android.synthetic.main.shop_fragment.*
@@ -53,7 +54,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView,CoroutineScope {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvCatalog.layoutManager=LinearLayoutManager(App.ctx)
+        rvCatalog.layoutManager=LinearLayoutManager(context)
         val items: ArrayList<itemCatalogs>? = arrayListOf()
 
         shopPresenter.getCatalog()
@@ -65,7 +66,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView,CoroutineScope {
     }
 
 
-    class AdapterPendingCases(private val values:ArrayList<itemCatalogs>?): RecyclerView.Adapter<AdapterPendingCases.PendingCasesViewHolder>() {
+    inner class AdapterPendingCases(private val values:ArrayList<itemCatalogs>?): RecyclerView.Adapter<AdapterPendingCases.PendingCasesViewHolder>() {
         override fun getItemCount(): Int {
             return values!!.size
         }
@@ -74,7 +75,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView,CoroutineScope {
 
             fun bind(item: itemCatalogs) {
                 itemView.priceTV.text=item.price
-                Picasso.get().load(item.url).into(itemView.photoItem)
+                Glide.with(context!!).load(item.url).into(itemView.photoItem)
                 itemView.descriptionTV.text=item.name
             }
 
@@ -82,7 +83,7 @@ class ShopFragment:MvpAppCompatFragment(),ShopFragmentView,CoroutineScope {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PendingCasesViewHolder {
-            return PendingCasesViewHolder(LayoutInflater.from(App.ctx).inflate(R.layout.item_catalog, parent, false))}
+            return PendingCasesViewHolder(LayoutInflater.from(context).inflate(R.layout.item_catalog, parent, false))}
 
 
         override fun onBindViewHolder(holder: PendingCasesViewHolder, position: Int) {

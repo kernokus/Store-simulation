@@ -67,7 +67,7 @@ class RegistrationFragment:MvpAppCompatFragment(),RegFragmentView,View.OnClickLi
                 if (isFieldsAreFill()){
                     regPresenter.addNewUser(User(0,name = loginETR.text.toString(),mail = mailETR.text.toString(),password = passwETR.text.toString()))
                 }
-                else Toast.makeText(App.ctx, "Not successfully(fields not a full)", Toast.LENGTH_SHORT).show()
+                else Toast.makeText(context, "Not successfully(fields not a full)", Toast.LENGTH_SHORT).show()
 
             }
             R.id.signUpBtnTV->{
@@ -103,9 +103,9 @@ class RegistrationFragment:MvpAppCompatFragment(),RegFragmentView,View.OnClickLi
 
     override fun showResAddUser(answer: String) {
         if (answer==RoomRepo.SUCCESS) {
-            Toast.makeText(App.ctx, "Successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Successfully", Toast.LENGTH_SHORT).show()
         }
-        else Toast.makeText(App.ctx, "Not successfully", Toast.LENGTH_SHORT).show()
+        else Toast.makeText(context, "Not successfully", Toast.LENGTH_SHORT).show()
     }
 
 }
