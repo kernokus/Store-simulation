@@ -4,7 +4,6 @@ package com.example.a10augportfolio.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import com.example.a10augportfolio.App
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

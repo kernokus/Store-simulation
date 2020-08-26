@@ -1,9 +1,8 @@
 package com.example.a10augportfolio.model
 
 
-import androidx.room.Room
+import android.content.Context
 import com.example.a10augportfolio.App
-import com.example.a10augportfolio.di.DatabaseModule
 import com.example.a10augportfolio.room.AppDatabase
 import com.example.a10augportfolio.room.User
 import com.example.a10augportfolio.room.UserDAO
@@ -12,8 +11,10 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class RoomRepo {
+class RoomRepo (val context: Context) {
     companion object{
         const val SUCCESS="success"
         const val UNSUCCESSFUL="unsuccessful"
@@ -30,15 +31,15 @@ class RoomRepo {
     private val userDAO=getUserDao()
 
     private fun getAppDatabase(): AppDatabase {
-        val hiltEntryPoint=EntryPointAccessors.fromApplication(App.ctx,HiltProviderEntryPoint::class.java)
+        val hiltEntryPoint=EntryPointAccessors.fromApplication(context,HiltProviderEntryPoint::class.java)
         return hiltEntryPoint.appDatabase()
     }
     private fun getUserDao(): UserDAO? {
-        val hiltEntryPoint=EntryPointAccessors.fromApplication(App.ctx,HiltProviderEntryPoint::class.java)
+        val hiltEntryPoint=EntryPointAccessors.fromApplication(context,HiltProviderEntryPoint::class.java)
         return hiltEntryPoint.userDAO()
     }
 
-suspend fun addUser(user:User): String {
+    suspend fun addUser(user:User): String {
         if (userDAO?.getByParams(user.name,user.mail,user.password) ==null) {
             userDAO?.insert(user)
            return SUCCESS
